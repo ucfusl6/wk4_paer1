@@ -56,10 +56,13 @@ World_map <-st_read(here::here("World_Countries_(Generalized)_902901292507851296
 
 Tidy and filter Index to create a new column of difference in inequality between 2010 and 2019
 ```{r}
-
 # creating a new column of difference in inequality between 2010 and 2019
-Inequality_Diff_between_2010_and_2019 <- GenderInquality %>% 
-  #new column with average of male and female life expectancy
+Inequality_Diff_between_2010_and_2019 <- GenderInquality %>%
+```
+
+
+```{r}
+#new column with average of male and female life expectancy
   mutate(Inequalitydifferencebetween2010and2019 = (gii_2010 - gii_2019))
 
 
@@ -74,4 +77,3 @@ Join the global gender inequality index to spatial data of the World
 ```{r}
 
 ```
-
