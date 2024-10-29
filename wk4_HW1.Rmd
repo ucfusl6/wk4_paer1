@@ -67,6 +67,11 @@ Inequality_Diff_between_2010_and_2019 <- GenderInquality %>%
 GenderInquality_cols_needed_for_mapping<-Inequality_Diff_between_2010_and_2019 %>%
   dplyr::select(c('iso3','country','hdicode', 'region', 'Inequalitydifferencebetween2010and2019'))
 
+```
+
+
+Join the global gender inequality index to spatial data of the World
+```{r}
 
 ```
 
