@@ -1,0 +1,72 @@
+---
+title: "wk4_HW1"
+output: html_document
+date: "2024-10-22"
+---
+```{r}
+library(terra)
+library(here)
+jan<-terra::rast(here("/Users/shinliu/Desktop/CASA0005/week 3/prac2/wc2.1_5m_tavg","wc2.1_5m_tavg_01.tif"))
+# have a look at the raster layer jan
+plot(jan)
+```
+```{r}
+library(sf)
+library(tmap) 
+library(tmaptools)
+library(RSQLite)
+library(tidyverse)
+library(here)
+library(fs)
+library(raster)
+library(terra)
+library(plotly)
+library(dplyr)
+library(stringr)
+library(countrycode)
+
+library(ggplot2)
+library(readr)
+library(janitor)
+
+```
+
+```{r}
+# Load data Gender Inquality Data
+GenderInquality<-read_csv("HDR23-24_Composite_indices_complete_time_series.csv")
+class(GenderInquality)
+
+# Examining New Data
+Datatypelist <- GenderInquality %>% 
+  summarise_all(class) %>%
+  pivot_longer(everything(), 
+               names_to="All_variables", 
+               values_to="Variable_class")
+
+Datatypelist
+
+
+```
+
+```{r}
+# Load Spatial Data of the world
+library(sf)
+World_map <-st_read(here::here("World_Countries_(Generalized)_9029012925078512962.geojson"))
+```
+
+Tidy and filter Index to create a new column of difference in inequality between 2010 and 2019
+```{r}
+
+# creating a new column of difference in inequality between 2010 and 2019
+Inequality_Diff_between_2010_and_2019 <- GenderInquality %>% 
+  #new column with average of male and female life expectancy
+  mutate(Inequalitydifferencebetween2010and2019 = (gii_2010 - gii_2019))
+
+
+#select only columns we want
+GenderInquality_cols_needed_for_mapping<-Inequality_Diff_between_2010_and_2019 %>%
+  dplyr::select(c('iso3','country','hdicode', 'region', 'Inequalitydifferencebetween2010and2019'))
+
+
+```
+
